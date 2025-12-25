@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>配信手順ガイド | ToruLive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4ade80, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #94a3b8;
+        }
+
+        /* Quick summary */
+        .quick-summary {
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+
+        .quick-summary h2 {
+            color: #4ade80;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quick-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .quick-step {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quick-step-num {
+            background: linear-gradient(135deg, #4ade80, #22d3ee);
+            color: #1a1a2e;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Section title */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 50px 0 30px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+        }
+
+        .section-title h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        /* Step card */
+        .step {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .step-header {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.2), rgba(34, 211, 238, 0.2));
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .step-header.start {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.3), rgba(34, 211, 238, 0.2));
+        }
+
+        .step-header.end {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(251, 146, 60, 0.2));
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4ade80, #22d3ee);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #1a1a2e;
+            flex-shrink: 0;
+        }
+
+        .step-header.end .step-number {
+            background: linear-gradient(135deg, #ef4444, #f97316);
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .step-content {
+            padding: 24px;
+        }
+
+        .step-description {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        .step-image {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Warning box */
+        .warning {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 16px;
+        }
+
+        .warning-title {
+            color: #f87171;
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .warning-text {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Note box */
+        .note {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 16px;
+        }
+
+        .note-title {
+            color: #60a5fa;
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .note-text {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Tip box */
+        .tip {
+            background: rgba(168, 85, 247, 0.1);
+            border-left: 4px solid #a855f7;
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 16px;
+        }
+
+        .tip-title {
+            color: #c084fc;
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .tip-text {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Troubleshooting */
+        .troubleshooting {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 50px;
+        }
+
+        .troubleshooting h2 {
+            color: #fbbf24;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .faq-item {
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .faq-q {
+            color: #fbbf24;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .faq-a {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4ade80, #22d3ee);
+            color: #1a1a2e;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #4ade80;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .step-header {
+                padding: 16px;
+            }
+
+            .step-content {
+                padding: 16px;
+            }
+
+            .quick-steps {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">ToruLive</div>
+            <h1>配信手順ガイド</h1>
+        </header>
+
+        <!-- Quick Summary -->
+        <div class="quick-summary">
+            <h2>📋 配信の流れ</h2>
+            <div class="quick-steps">
+                <div class="quick-step">
+                    <span class="quick-step-num">1</span>
+                    LIVEボタンをタップ
+                </div>
+                <div class="quick-step">
+                    <span class="quick-step-num">2</span>
+                    試合を撮影
+                </div>
+                <div class="quick-step">
+                    <span class="quick-step-num">3</span>
+                    LIVEボタンで停止
+                </div>
+                <div class="quick-step">
+                    <span class="quick-step-num">4</span>
+                    YouTube Studioで終了
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Section -->
+        <div class="section-title">
+            <span class="section-icon">🎬</span>
+            <h2>配信を開始する</h2>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="step">
+            <div class="step-header start">
+                <div class="step-number">1</div>
+                <div class="step-title">LIVEボタンをタップ</div>
+            </div>
+            <div class="step-content">
+                <p class="step-description">
+                    ToruLiveアプリで試合撮影画面を開き、右上の「LIVE」ボタンをタップします。<br>
+                    録画だけの場合は「未録画」ボタンをタップしてください。
+                </p>
+                <img src="images/guide1.png" alt="LIVEボタン" class="step-image">
+                <div class="note">
+                    <div class="note-title">💡 LIVE＆録画</div>
+                    <div class="note-text">「LIVE」をタップすると、YouTubeへの配信と端末への録画が同時に開始されます。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step">
+            <div class="step-header start">
+                <div class="step-number">2</div>
+                <div class="step-title">配信中の確認</div>
+            </div>
+            <div class="step-content">
+                <p class="step-description">
+                    LIVEボタンが赤く光っていれば、配信中です。<br>
+                    このまま試合を撮影してください。
+                </p>
+                <img src="images/guide2.png" alt="配信中の画面" class="step-image">
+                <div class="tip">
+                    <div class="tip-title">✨ ヒント</div>
+                    <div class="tip-text">前回のLIVEがYouTube Studio側で正しく終了していないと、新しいLIVEを開始できないことがあります。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- End Section -->
+        <div class="section-title">
+            <span class="section-icon">🛑</span>
+            <h2>配信を終了する</h2>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step">
+            <div class="step-header end">
+                <div class="step-number">3</div>
+                <div class="step-title">YouTube Studioで配信を終了</div>
+            </div>
+            <div class="step-content">
+                <p class="step-description">
+                    配信を終了するときは、YouTube Studioを開いて<br>
+                    「ライブ配信を終了」ボタンをタップします。
+                </p>
+                <img src="images/guide3.png" alt="ライブ配信を終了" class="step-image">
+                <div class="warning">
+                    <div class="warning-title">⚠️ 重要</div>
+                    <div class="warning-text">ToruLiveアプリのLIVEボタンだけでなく、必ずYouTube Studio側でも終了してください。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step">
+            <div class="step-header end">
+                <div class="step-number">4</div>
+                <div class="step-title">「閉じる」で完全に終了</div>
+            </div>
+            <div class="step-content">
+                <p class="step-description">
+                    配信終了後に表示される画面で「閉じる」をタップして、<br>
+                    ライブ配信を完全に終了します。
+                </p>
+                <img src="images/guide4.png" alt="閉じるボタン" class="step-image">
+                <div class="warning">
+                    <div class="warning-title">⚠️ これをしないと…</div>
+                    <div class="warning-text">「閉じる」を押さないと、次回のライブ配信ができなくなる可能性があります。必ず最後までタップしてください。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="troubleshooting">
+            <h2>❓ よくある質問</h2>
+            
+            <div class="faq-item">
+                <div class="faq-q">Q: 配信が始まらない</div>
+                <div class="faq-a">A: 前回のLIVEがYouTube Studioで正しく終了していない可能性があります。YouTube Studioを開いて「閉じる」ボタンを押してください。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-q">Q: 「送信が早すぎる」エラーが出る</div>
+                <div class="faq-a">A: YouTube Studioでレイテンシ設定を「通常の遅延」に変更してください。詳しくは<a href="setup.html" style="color: #4ade80;">初回設定ガイド</a>をご覧ください。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-q">Q: 配信の遅延はどれくらい？</div>
+                <div class="faq-a">A: 「通常の遅延」設定で約15〜30秒の遅延があります。リアルタイムではないのでご注意ください。</div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-links">
+            <a href="setup.html" class="btn btn-secondary">← 初回設定ガイド</a>
+            <a href="https://studio.youtube.com" class="btn btn-primary" target="_blank">YouTube Studio を開く →</a>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2025 <a href="https://www.torulive.com">ToruLive</a> by Kyatti Studio</p>
+        </footer>
+    </div>
+</body>
+</html>

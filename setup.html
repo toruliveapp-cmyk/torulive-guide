@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初回設定ガイド | ToruLive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4ade80, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #94a3b8;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #334155;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #4ade80;
+            box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+        }
+
+        /* Prerequisites */
+        .prerequisites {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+
+        .prerequisites h2 {
+            color: #fbbf24;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prerequisites ul {
+            list-style: none;
+            color: #e2e8f0;
+        }
+
+        .prerequisites li {
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .prerequisites li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #fbbf24;
+        }
+
+        /* Step card */
+        .step {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .step-header {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.2), rgba(34, 211, 238, 0.2));
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4ade80, #22d3ee);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #1a1a2e;
+            flex-shrink: 0;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .step-content {
+            padding: 24px;
+        }
+
+        .step-description {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        .step-image {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Note box */
+        .note {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 16px;
+        }
+
+        .note-title {
+            color: #60a5fa;
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .note-text {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Warning box */
+        .warning {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 16px;
+        }
+
+        .warning-title {
+            color: #f87171;
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .warning-text {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Success box */
+        .success-box {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.2), rgba(34, 211, 238, 0.1));
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .success-box h2 {
+            color: #4ade80;
+            margin-bottom: 12px;
+        }
+
+        .success-box p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #4ade80, #22d3ee);
+            color: #1a1a2e;
+            padding: 14px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(74, 222, 128, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #4ade80;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .step-header {
+                padding: 16px;
+            }
+
+            .step-content {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">ToruLive</div>
+            <h1>初回設定ガイド</h1>
+        </header>
+
+        <!-- Progress -->
+        <div class="progress-bar">
+            <div class="progress-dot active"></div>
+            <div class="progress-dot active"></div>
+            <div class="progress-dot active"></div>
+            <div class="progress-dot active"></div>
+            <div class="progress-dot active"></div>
+            <div class="progress-dot active"></div>
+            <div class="progress-dot active"></div>
+            <div class="progress-dot active"></div>
+        </div>
+
+        <!-- Prerequisites -->
+        <div class="prerequisites">
+            <h2>⚠️ 始める前に</h2>
+            <ul>
+                <li>YouTubeチャンネルの登録者が50人以上必要です</li>
+                <li>初めてライブ配信する場合、YouTubeの審査に24時間かかります</li>
+                <li>iPhoneのSafariブラウザを使用してください</li>
+            </ul>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">YouTube Studioにアクセス</div>
+            </div>
+            <div class="step-content">
+                <p class="step-description">
+                    Safariで <strong>studio.youtube.com</strong> を開きます。<br>
+                    「STUDIOに移動」をタップしてください。
+                </p>
+                <img src="images/step1.png" alt="STUDIOに移動" class="step-image">
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">ストリームキーを選択</div>
+            </div>
+            <div class="step-content">
+                <p class="step-description">
+                    画面上部の「ストリームキー」をタップして、メニューを開きます。
+                </p>
+                <img src="images/step2.png" alt="ストリームキーをタップ" class="step-image">
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <div class="step-title">既存のキーを選択 or 新規作成</div>
+            </div>
+            <div class="step-content">
+                <p class="step-description">
+                    既にストリームキーがある場合は選択します。<br>
+                    初めての場合は「新しいストリームキーを作成」をタップ。
+                </p>
+                <img src="images/step3.png" alt="選択or新規作成" class="step-image">
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <div class="step-title">RTMP設定を確認</div>
+            </div>
+            <div class="step-content">
+                <p class="step-description">
+                    新規作成の場合、ストリーミングプロトコルが<br>
+                    「RTMP（デフォルト）」になっていることを確認して「作成」。
+                </p>
+                <img src="images/step4.png" alt="RTMP設定" class="step-image">
+            </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">5</div>
+                <div class="step-title">ストリームキーをコピー</div>
+            </div>
+            <div class="step-content">
+                <p class="step-description">
+                    コピーボタンをタップして、ストリームキーをコピーします。
+                </p>
+                <img src="images/step5.png" alt="ストリームキーをコピー" class="step-image">
+            </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">6</div>
+                <div class="step-title">レイテンシを「通常」に設定</div>
+            </div>
+            <div class="step-content">
+                <p class="step-description">
+                    「ライブ配信の設定」タブで、レイテンシを<strong>「通常の遅延」</strong>に設定してください。
+                </p>
+                <img src="images/step6.png" alt="レイテンシ設定" class="step-image">
+                <div class="warning">
+                    <div class="warning-title">⚠️ 重要</div>
+                    <div class="warning-text">「低遅延」や「超低遅延」だとエラーが発生することがあります。必ず「通常」を選択してください。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">7</div>
+                <div class="step-title">ToruLiveにストリームキーを入力</div>
+            </div>
+            <div class="step-content">
+                <p class="step-description">
+                    ToruLiveアプリを開き、ライブ配信設定画面でコピーしたストリームキーを貼り付けます。
+                </p>
+                <img src="images/step7.png" alt="ToruLiveに入力" class="step-image">
+            </div>
+        </div>
+
+        <!-- Step 8 -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">8</div>
+                <div class="step-title">設定完了！</div>
+            </div>
+            <div class="step-content">
+                <p class="step-description">
+                    「実際の配信開始」ボタンをタップすると、YouTubeライブ配信が始まります。<br>
+                    次回からはこの設定は不要です。
+                </p>
+                <img src="images/step8.png" alt="配信開始ボタン" class="step-image">
+                <div class="note">
+                    <div class="note-title">💡 ヒント</div>
+                    <div class="note-text">ストリームキーは一度設定すれば保存されます。毎回入力する必要はありません。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success -->
+        <div class="success-box">
+            <div class="success-icon">🎉</div>
+            <h2>設定完了！</h2>
+            <p>これでYouTubeライブ配信の準備ができました。<br>配信手順については下のボタンからご確認ください。</p>
+            <a href="guide.html" class="btn">配信手順ガイドへ →</a>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2025 <a href="https://www.torulive.com">ToruLive</a> by Kyatti Studio</p>
+        </footer>
+    </div>
+</body>
+</html>
